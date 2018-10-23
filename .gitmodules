@@ -1,0 +1,6 @@
+[submodule "googletest"]
+	path = googletest
+	url = git@github.com:google/googletest.git
+[submodule "cucumber-cpp"]
+	path = cucumber-cpp
+	url = git@github.com:cucumber/cucumber-cpp.git
