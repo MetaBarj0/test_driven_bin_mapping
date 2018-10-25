@@ -19,4 +19,5 @@ HEADERS += \
     lvm_wt_bin_map_store.h \
     lvm_wt_bin_map_item.h \
     lvm_wt_exceptions.h \
-    bin_map_file_reader.h
+    bin_map_file_reader.h \
+    common/exceptions.h

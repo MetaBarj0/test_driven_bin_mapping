@@ -1,5 +1,6 @@
 #include "lvm_wt_bin_map_store.h"
 #include "lvm_wt_bin_map_item.h"
+#include "common/exceptions.h"
 #include "lvm_wt_exceptions.h"
 
 namespace Qx
