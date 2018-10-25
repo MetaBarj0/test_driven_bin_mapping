@@ -12,3 +12,8 @@ TEST(lvm_wt, instantiate_bin_map_store_with_empty_file_path)
 {
     ASSERT_THROW( Qx::BinMapping::LvmWtBinMapStore{ "" }, Qx::BinMapping::EmptyFilePath );
 }
+
+TEST(lvm_wt, instantiate_bin_map_store_with_invalid_file_path)
+{
+    ASSERT_THROW( Qx::BinMapping::LvmWtBinMapStore{ "foo" }, Qx::BinMapping::BadFilePath );
+}
