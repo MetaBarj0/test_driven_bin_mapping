@@ -10,6 +10,10 @@ CONFIG += c++14 staticlib
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
-SOURCES +=
+SOURCES += \
+    lvm_wt_bin_map_store.cpp \
+    lvm_wt_bin_map_item.cpp
 
-HEADERS +=
+HEADERS += \
+    lvm_wt_bin_map_store.h \
+    lvm_wt_bin_map_item.h

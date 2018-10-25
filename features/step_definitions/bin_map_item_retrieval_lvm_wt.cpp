@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <cucumber-cpp/autodetect.hpp>
 
+#include "lvm_wt_bin_map_store.h"
+#include "lvm_wt_bin_map_item.h"
+
 #include <string>
 #include <memory>
 #include <fstream>
@@ -29,7 +32,7 @@ WHEN( "^I check the file exists$" )
     lContext->mFileExists = static_cast< bool >( lFileStream );
 }
 
-THEN( "^the file should be reported as existing$" )
+THEN( "^the specified file should be reported as existing$" )
 {
     ScenarioScope< Context > lContext;
     ASSERT_TRUE( lContext->mFileExists );
@@ -48,20 +51,14 @@ WHEN( "^I create a bin map store from that file$" )
 {
     ScenarioScope< Context > lContext;
 
-    try
-    {
-        lContext->mBinMapStore.reset( new Qx::BinMapping::LvmWtBinMapStore{ lContext->mFilePath } );
-    }
-    catch( ... )
-    {
-    }
+    lContext->mBinMapStore.reset( new Qx::BinMapping::LvmWtBinMapStore{ lContext->mFilePath } );
 }
 
 THEN( "^the bin map store should have been created succesfully$" )
 {
     ScenarioScope< Context > lContext;
 
-    ASSERT_TRUE( lContext->mBinMapStore);
+    ASSERT_TRUE( lContext->mBinMapStore );
 }
 
 GIVEN( "^a bin map item store created from an existing file (.+)$" )
@@ -81,7 +78,7 @@ WHEN( "^I query a bin map item using the key (\\d+)$" )
 
     try
     {
-        auto &&lBinmapItem = lContext->mBinMapStore->GetBinMapItemByKey( lKey );
+        auto &&lBinMapItem = lContext->mBinMapStore->GetBinMapItemByKey( lKey );
         lContext->mRetrievedBinMapItem.reset( new Qx::BinMapping::LvmWtBinMapItem{ std::move( lBinMapItem ) } );
     }
     catch ( ... )

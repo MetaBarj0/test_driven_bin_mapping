@@ -12,7 +12,7 @@ Feature: Bin map item retrieval for the LVM_WT flow
 
     Given the file <file>
     When I check the file exists
-    Then the file should be reported as existing
+    Then the specified file should be reported as existing
 
   Scenario: Checking the validity of a file by creating a bin map item store
 
@@ -23,7 +23,7 @@ Feature: Bin map item retrieval for the LVM_WT flow
   Scenario: Querying a bin map item object from a store
 
     Given a bin map item store created from an existing file <file>
-    When I query a bin map item using the key <key>
+    When I query a bin map item using the key 5
     Then the bin map item should have been retrieved successfully
 
   Scenario Outline: Getting properties of a retrieved bin map item
