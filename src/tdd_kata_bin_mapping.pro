@@ -16,4 +16,5 @@ SOURCES += \
 
 HEADERS += \
     lvm_wt_bin_map_store.h \
-    lvm_wt_bin_map_item.h
+    lvm_wt_bin_map_item.h \
+    lvm_wt_exceptions.h
