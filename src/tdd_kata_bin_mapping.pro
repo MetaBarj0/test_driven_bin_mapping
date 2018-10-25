@@ -12,9 +12,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     lvm_wt_bin_map_store.cpp \
-    lvm_wt_bin_map_item.cpp
+    lvm_wt_bin_map_item.cpp \
+    bin_map_file_reader.cpp
 
 HEADERS += \
     lvm_wt_bin_map_store.h \
     lvm_wt_bin_map_item.h \
-    lvm_wt_exceptions.h
+    lvm_wt_exceptions.h \
+    bin_map_file_reader.h
