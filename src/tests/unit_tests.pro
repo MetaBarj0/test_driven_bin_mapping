@@ -7,7 +7,13 @@ CONFIG += thread
 CONFIG -= qt
 
 HEADERS += \
-    run_all_tests.h
+    lvm_wt_tests.h
 
 SOURCES += \
         main.cpp
+
+INCLUDEPATH += \
+    $$PWD/..
+
+LIBS += -L$$PWD/../../build
+LIBS += -ltdd_kata_bin_mapping

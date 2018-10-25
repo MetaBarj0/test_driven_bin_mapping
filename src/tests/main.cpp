@@ -1,4 +1,4 @@
-#include "run_all_tests.h"
+#include "lvm_wt_tests.h"
 
 #include <gtest/gtest.h>
 
