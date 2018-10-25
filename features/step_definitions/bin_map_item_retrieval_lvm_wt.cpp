@@ -3,10 +3,16 @@
 
 #include "lvm_wt_bin_map_store.h"
 #include "lvm_wt_bin_map_item.h"
+#include "bin_map_stream_reader.h"
 
 #include <string>
 #include <memory>
 #include <fstream>
+
+using Qx::BinMapping::LvmWtBinMapStore;
+using Qx::BinMapping::LvmWtBinMapItem;
+using Qx::BinMapping::ReadableBinMapContent;
+using BinMapStreamReader = Qx::BinMapping::BinMapStreamReader< std::ifstream >;
 
 using cucumber::ScenarioScope;
 
@@ -14,15 +20,21 @@ struct Context
 {
     std::string mFilePath;
     bool mFileExists = false;
-    std::unique_ptr< Qx::BinMapping::LvmWtBinMapStore> mBinMapStore;
-    std::unique_ptr< Qx::BinMapping::LvmWtBinMapItem > mRetrievedBinMapItem;
+    std::unique_ptr< LvmWtBinMapStore> mBinMapStore;
+    std::unique_ptr< LvmWtBinMapItem > mRetrievedBinMapItem;
+
+    void SetupInputFile( const std::string &aPath )
+    {
+        mFilePath = INPUT_FILES_DIR;
+        mFilePath += aPath;
+    }
 };
 
 GIVEN( "^the file (.+)$" )
 {
     REGEX_PARAM( std::string, lFilePath );
     ScenarioScope< Context > lContext;
-    lContext->mFilePath = std::move( lFilePath );
+    lContext->SetupInputFile( lFilePath );
 }
 
 WHEN( "^I check the file exists$" )
@@ -43,7 +55,7 @@ GIVEN( "^an existing file (.+)$" )
     REGEX_PARAM( std::string, lFilePath );
     ScenarioScope< Context > lContext;
 
-    lContext->mFilePath = std::move( lFilePath );
+    lContext->SetupInputFile( lFilePath );
     lContext->mFileExists = true;
 }
 
@@ -51,7 +63,11 @@ WHEN( "^I create a bin map store from that file$" )
 {
     ScenarioScope< Context > lContext;
 
-    lContext->mBinMapStore.reset( new Qx::BinMapping::LvmWtBinMapStore{ lContext->mFilePath } );
+    std::ifstream lFileStream{ lContext->mFilePath };
+    auto lReader = std::make_unique< BinMapStreamReader >( std::move( lFileStream ) );
+    auto lStore = new LvmWtBinMapStore( std::move( lReader ) );
+
+    lContext->mBinMapStore.reset( lStore );
 }
 
 THEN( "^the bin map store should have been created succesfully$" )
@@ -66,9 +82,14 @@ GIVEN( "^a bin map item store created from an existing file (.+)$" )
     REGEX_PARAM( std::string, lFilePath );
     ScenarioScope< Context > lContext;
 
-    lContext->mFilePath = std::move( lFilePath );
+    lContext->SetupInputFile( lFilePath );
     lContext->mFileExists = true;
-    lContext->mBinMapStore.reset( new Qx::BinMapping::LvmWtBinMapStore{ lContext->mFilePath } );
+
+    std::ifstream lFileStream{ lContext->mFilePath };
+    auto lReader = std::make_unique< BinMapStreamReader >( std::move( lFileStream ) );
+    auto lStore = new LvmWtBinMapStore( std::move( lReader ) );
+
+    lContext->mBinMapStore.reset( lStore );
 }
 
 WHEN( "^I query a bin map item using the key (\\d+)$" )

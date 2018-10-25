@@ -20,3 +20,6 @@ INCLUDEPATH += \
 
 LIBS += -L$$PWD/../build
 LIBS += -ltdd_kata_bin_mapping
+
+# directory of input files
+DEFINES += INPUT_FILES_DIR=\\\"$$PWD/\\\"

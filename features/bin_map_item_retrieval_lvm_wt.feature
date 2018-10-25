@@ -8,21 +8,27 @@ Feature: Bin map item retrieval for the LVM_WT flow
   having its own accessors corresponding to the format of the bin map item
   containing file
 
+  Complete specifications are documented in
+  http://orw-qx-conf-01:8090/confluence/pages/viewpage.action?pageId=141296014#VishayMappingformats&algorithms-B_WT_LVM
+
+  Some of these specifications are low-level and be verified in unit tests instead of behavior tests (like header
+  constitutions)
+
   Scenario: Verifying the existence of a LVM_WT bin map item file
 
-    Given the file <file>
+    Given the file bin_map_items_lvm_wt.csv
     When I check the file exists
     Then the specified file should be reported as existing
 
   Scenario: Checking the validity of a file by creating a bin map item store
 
-    Given an existing file <file>
+    Given an existing file bin_map_items_lvm_wt.csv
     When I create a bin map store from that file
     Then the bin map store should have been created succesfully
 
   Scenario: Querying a bin map item object from a store
 
-    Given a bin map item store created from an existing file <file>
+    Given a bin map item store created from an existing file bin_map_items_lvm_wt.csv
     When I query a bin map item using the key 5
     Then the bin map item should have been retrieved successfully
 
