@@ -8,7 +8,6 @@ namespace Qx
 namespace BinMapping
 {
 
-class EmptyFilePath : public std::exception {};
 
 }
 }
