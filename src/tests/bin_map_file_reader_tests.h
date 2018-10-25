@@ -4,27 +4,23 @@
 #include <gmock/gmock-matchers.h>
 
 #include "common/exceptions.h"
-#include "bin_map_file_reader.h"
-#include "test_doubles/valid_path_bin_map_file_reader.h"
-#include "test_doubles/bad_path_bin_map_file_reader.h"
-#include "test_doubles/empty_path_bin_map_file_reader.h"
+#include "bin_map_stream_reader.h"
 
-using Qx::BinMapping::BinMapFileReader;
+#include <sstream>
 
-TEST(bin_map_file_reader, instantiate_with_empty_file_path)
+using BinMapStreamReader = Qx::BinMapping::BinMapStreamReader< std::stringstream >;
+
+TEST(bin_map_stream_reader, instantiate_with_empty_stream)
 {
-    ASSERT_THROW( EmptyPathBinMapFileReader{ "" }, Qx::BinMapping::EmptyFilePath );
+    ASSERT_THROW( BinMapStreamReader{ std::stringstream{} }, Qx::BinMapping::InvalidStream);
 }
 
-
-TEST(bin_map_file_reader, instantiate_with_bad_file_path)
+TEST(bin_map_stream_reader, instantiate_with_valid_stream)
 {
-    ASSERT_THROW( BadPathBinMapFileReader{ "foo" }, Qx::BinMapping::BadFilePath );
-}
+    std::stringstream lStream;
+    lStream << "foo," << "bar," << "baz\n";
 
-TEST(bin_map_file_reader, instantiate_with_valid_path)
-{
-    ValidPathBinMapFileReader lReader{ "bar" };
+    BinMapStreamReader lReader{ std::move( lStream ) };
 
-    ASSERT_TRUE( lReader.IsOpen() );
+    ASSERT_TRUE( lReader.IsReady() );
 }

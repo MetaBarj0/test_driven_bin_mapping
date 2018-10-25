@@ -18,6 +18,7 @@ public :
     LvmWtBinMapStore( std::unique_ptr< ReadableBinMapContent > &&aBinMapFileReader );
 
     LvmWtBinMapItem GetBinMapItemByKey( int aKey ) const;
+    bool IsEmpty() const noexcept;
 
 private :
     std::unique_ptr< ReadableBinMapContent > mFileReader;

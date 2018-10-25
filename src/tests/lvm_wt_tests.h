@@ -6,32 +6,29 @@
 #include "lvm_wt_bin_map_store.h"
 #include "lvm_wt_exceptions.h"
 #include "common/exceptions.h"
-#include "test_doubles/bad_path_bin_map_file_reader.h"
-#include "test_doubles/empty_path_bin_map_file_reader.h"
-#include "test_doubles/valid_path_bin_map_file_reader.h"
+#include "bin_map_stream_reader.h"
+
+#include <sstream>
 
 using namespace testing;
 
 using Qx::BinMapping::LvmWtBinMapStore;
-using Qx::BinMapping::EmptyFilePath;
-using Qx::BinMapping::BadFilePath;
+using Qx::BinMapping::InvalidStream;
 
-TEST(lvm_wt, instantiate_bin_map_store_with_empty_file_path)
+using BinMapStreamReader = Qx::BinMapping::BinMapStreamReader< std::stringstream >;
+
+TEST(lvm_wt, instantiate_bin_map_store_with_empty_stream_reader)
 {
-    ASSERT_THROW( LvmWtBinMapStore{ std::make_unique< EmptyPathBinMapFileReader >( "" ) },
-                  EmptyFilePath );
+    ASSERT_THROW( LvmWtBinMapStore{ std::make_unique< BinMapStreamReader >( std::stringstream{} ) },
+                  InvalidStream );
 }
 
-TEST(lvm_wt, instantiate_bin_map_store_with_invalid_file_path)
+TEST(lvm_wt, DISABLED_instantiate_bin_map_store_with_valid_stream_reader)
 {
-    ASSERT_THROW( LvmWtBinMapStore{ std::make_unique< BadPathBinMapFileReader >( "foo" ) },
-                  BadFilePath );
-}
+    std::stringstream lStream;
+    lStream << "foo," << "bar," << "baz\n";
 
-TEST(lvm_wt, DISABLED_instantiate_bin_map_store_with_valid_file_path)
-{
-   LvmWtBinMapStore store{ std::make_unique< ValidPathBinMapFileReader >( "bar" ) };
+    LvmWtBinMapStore store{ std::make_unique< BinMapStreamReader >( std::move( lStream ) ) };
 
-   /// TODO - activate this test asap, once unstuck
-   /// ASSERT_FALSE( store.IsEmpty() );
+    ASSERT_FALSE( store.IsEmpty() );
 }

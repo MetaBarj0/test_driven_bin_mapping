@@ -8,16 +8,10 @@ CONFIG -= qt
 
 HEADERS += \
     lvm_wt_tests.h \
-    bin_map_file_reader_tests.h \
-    test_doubles/empty_path_bin_map_file_reader.h \
-    test_doubles/bad_path_bin_map_file_reader.h \
-    test_doubles/valid_path_bin_map_file_reader.h
+    bin_map_file_reader_tests.h
 
 SOURCES += \
-        main.cpp \
-    test_doubles/empty_path_bin_map_file_reader.cpp \
-    test_doubles/bad_path_bin_map_file_reader.cpp \
-    test_doubles/valid_path_bin_map_file_reader.cpp
+        main.cpp
 
 INCLUDEPATH += \
     $$PWD/..

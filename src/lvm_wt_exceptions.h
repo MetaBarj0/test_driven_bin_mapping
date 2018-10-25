@@ -7,8 +7,6 @@ namespace Qx
 {
 namespace BinMapping
 {
-
-
 }
 }
 

@@ -8,8 +8,7 @@ namespace Qx
 namespace BinMapping
 {
 
-class BadFilePath : public std::exception {};
-class EmptyFilePath : public std::exception {};
+class InvalidStream: public std::exception {};
 
 }
 }
