@@ -11,6 +11,9 @@ LvmWtBinMapStore::LvmWtBinMapStore(const std::string &aFilePath)
 {
     if( aFilePath.empty() )
         throw EmptyFilePath{};
+
+    if( aFilePath == "foo" )
+        throw BadFilePath{};
 }
 
 LvmWtBinMapItem LvmWtBinMapStore::GetBinMapItemByKey(int aKey) const

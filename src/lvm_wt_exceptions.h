@@ -9,6 +9,7 @@ namespace BinMapping
 {
 
 class EmptyFilePath : public std::exception {};
+class BadFilePath : public std::exception {};
 
 }
 }
