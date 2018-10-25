@@ -3,12 +3,14 @@
 
 #include <string>
 
+#include "readable_binmap_content.h"
+
 namespace Qx
 {
 namespace BinMapping
 {
 
-class BinMapFileReader
+class BinMapFileReader : public ReadableBinMapContent
 {
 public :
     BinMapFileReader( const std::string &aFilePath );

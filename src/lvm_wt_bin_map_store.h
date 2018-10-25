@@ -8,14 +8,19 @@ namespace Qx
 namespace BinMapping
 {
 
+struct ReadableBinMapContent;
+
 class LvmWtBinMapItem;
 
 class LvmWtBinMapStore
 {
 public :
-    LvmWtBinMapStore( const std::string &aFilePath );
+    LvmWtBinMapStore( std::unique_ptr< ReadableBinMapContent > &&aBinMapFileReader );
 
     LvmWtBinMapItem GetBinMapItemByKey( int aKey ) const;
+
+private :
+    std::unique_ptr< ReadableBinMapContent > mFileReader;
 };
 
 }
