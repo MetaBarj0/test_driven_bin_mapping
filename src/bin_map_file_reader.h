@@ -14,6 +14,8 @@ class BinMapFileReader : public ReadableBinMapContent
 {
 public :
     BinMapFileReader( const std::string &aFilePath );
+
+    bool IsOpen() const noexcept override;
 };
 
 }

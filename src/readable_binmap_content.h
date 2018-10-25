@@ -10,6 +10,8 @@ struct ReadableBinMapContent
 {
 public :
     virtual ~ReadableBinMapContent() = default;
+
+    virtual bool IsOpen() const noexcept = 0;
 };
 
 }

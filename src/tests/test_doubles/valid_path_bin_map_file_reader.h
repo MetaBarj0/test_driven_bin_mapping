@@ -8,4 +8,6 @@ class ValidPathBinMapFileReader : public Qx::BinMapping::ReadableBinMapContent
 {
 public :
     ValidPathBinMapFileReader( const std::string & ) noexcept;
+
+    bool IsOpen() const noexcept override;
 };

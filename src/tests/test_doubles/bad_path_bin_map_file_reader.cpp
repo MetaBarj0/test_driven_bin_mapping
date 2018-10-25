@@ -5,3 +5,8 @@ BadPathBinMapFileReader::BadPathBinMapFileReader(const std::string &)
 {
     throw Qx::BinMapping::BadFilePath{};
 }
+
+bool BadPathBinMapFileReader::IsOpen() const noexcept
+{
+    return false;
+}

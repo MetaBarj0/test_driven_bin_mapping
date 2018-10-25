@@ -8,4 +8,6 @@ class EmptyPathBinMapFileReader : public Qx::BinMapping::ReadableBinMapContent
 {
 public :
     EmptyPathBinMapFileReader( const std::string & );
+
+    bool IsOpen() const noexcept override;
 };

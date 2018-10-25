@@ -15,5 +15,10 @@ BinMapFileReader::BinMapFileReader(const std::string &aFilePath)
         throw BadFilePath{};
 }
 
+bool BinMapFileReader::IsOpen() const noexcept
+{
+    return false;
+}
+
 }
 }

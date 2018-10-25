@@ -5,6 +5,7 @@
 
 #include "common/exceptions.h"
 #include "bin_map_file_reader.h"
+#include "test_doubles/valid_path_bin_map_file_reader.h"
 
 using Qx::BinMapping::BinMapFileReader;
 
@@ -21,7 +22,7 @@ TEST(bin_map_file_reader, instantiate_with_bad_file_path)
 
 TEST(bin_map_file_reader, instantiate_with_valid_path)
 {
-    BinMapFileReader lReader{ "bar" };
+    ValidPathBinMapFileReader lReader{ "bar" };
 
     ASSERT_TRUE( lReader.IsOpen() );
 }

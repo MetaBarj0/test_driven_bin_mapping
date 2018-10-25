@@ -4,3 +4,8 @@ ValidPathBinMapFileReader::ValidPathBinMapFileReader(const std::string &) noexce
 {
 
 }
+
+bool ValidPathBinMapFileReader::IsOpen() const noexcept
+{
+    return true;
+}

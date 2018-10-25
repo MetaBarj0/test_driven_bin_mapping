@@ -5,3 +5,8 @@ EmptyPathBinMapFileReader::EmptyPathBinMapFileReader(const std::string &)
 {
     throw Qx::BinMapping::EmptyFilePath{};
 }
+
+bool EmptyPathBinMapFileReader::IsOpen() const noexcept
+{
+    return false;
+}
