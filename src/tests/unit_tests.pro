@@ -7,7 +7,8 @@ CONFIG += thread
 CONFIG -= qt
 
 HEADERS += \
-    lvm_wt_tests.h
+    lvm_wt_tests.h \
+    bin_map_file_reader_tests.h
 
 SOURCES += \
         main.cpp
