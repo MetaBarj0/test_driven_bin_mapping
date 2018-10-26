@@ -23,12 +23,12 @@ TEST(lvm_wt, instantiate_bin_map_store_with_empty_stream_reader)
                   InvalidStream );
 }
 
-TEST(lvm_wt, DISABLED_instantiate_bin_map_store_with_valid_stream_reader)
+TEST(lvm_wt, instantiate_bin_map_store_with_invalid_stream_content )
 {
     std::stringstream lStream;
     lStream << "foo," << "bar," << "baz\n";
 
     LvmWtBinMapStore store{ std::make_unique< BinMapStreamReader >( std::move( lStream ) ) };
 
-    ASSERT_FALSE( store.IsEmpty() );
+    ASSERT_TRUE( store.IsEmpty() );
 }

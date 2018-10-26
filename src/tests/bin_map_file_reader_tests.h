@@ -20,7 +20,5 @@ TEST(bin_map_stream_reader, instantiate_with_valid_stream)
     std::stringstream lStream;
     lStream << "foo," << "bar," << "baz\n";
 
-    BinMapStreamReader lReader{ std::move( lStream ) };
-
-    ASSERT_TRUE( lReader.IsReady() );
+     ASSERT_NO_THROW( BinMapStreamReader { std::move( lStream ) } );
 }
