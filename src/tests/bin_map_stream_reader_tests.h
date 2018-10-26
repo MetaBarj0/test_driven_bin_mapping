@@ -5,10 +5,12 @@
 
 #include "common/exceptions.h"
 #include "bin_map_stream_reader.h"
+#include "bin_map_stream_line.h"
 
 #include <sstream>
 
 using BinMapStreamReader = Qx::BinMapping::BinMapStreamReader< std::stringstream >;
+using Qx::BinMapping::BinMapStreamLine;
 
 TEST(bin_map_stream_reader, instantiate_with_empty_stream)
 {
@@ -32,11 +34,11 @@ TEST( bin_map_stream_reader, extract_line )
 
     BinMapStreamReader lReader{ std::move( lHeaderStream ) };
 
-    BinMapStreamLine lLine = lReader.GetLine();
+    BinMapStreamLine lLine = lReader.GetLine( '\n' );
 
-    ASSERT_TRUE( lLine.ToString() == "a line" );
+    ASSERT_THAT( lLine.ToString(), testing::StrEq( "a line" ) );
 
-    BinMapStreamLine lAnotherLine = lReader.GetLine();
+    BinMapStreamLine lAnotherLine = lReader.GetLine( '\n' );
 
-    ASSERT_TRUE( lAnotherLine.ToString() == "another line that is longer" );
+    ASSERT_THAT( lAnotherLine.ToString(), testing::StrEq( "another line that is longer" ) );
 }
