@@ -25,6 +25,13 @@ TEST(bin_map_stream_reader, instantiate_with_valid_stream)
     ASSERT_NO_THROW( BinMapStreamReader { std::move( lStream ) } );
 }
 
+static void TestExtractedLineEquals( const BinMapStreamReader &aReader, const char *aText )
+{
+    BinMapStreamLine lLine = aReader.GetLine( '\n' );
+
+    ASSERT_THAT( lLine.ToString(), testing::StrEq( aText ) );
+}
+
 TEST( bin_map_stream_reader, extract_line )
 {
     std::stringstream lHeaderStream;
@@ -34,11 +41,6 @@ TEST( bin_map_stream_reader, extract_line )
 
     BinMapStreamReader lReader{ std::move( lHeaderStream ) };
 
-    BinMapStreamLine lLine = lReader.GetLine( '\n' );
-
-    ASSERT_THAT( lLine.ToString(), testing::StrEq( "a line" ) );
-
-    BinMapStreamLine lAnotherLine = lReader.GetLine( '\n' );
-
-    ASSERT_THAT( lAnotherLine.ToString(), testing::StrEq( "another line that is longer" ) );
+    TestExtractedLineEquals( lReader, "a line" );
+    TestExtractedLineEquals( lReader, "another line that is longer" );
 }
