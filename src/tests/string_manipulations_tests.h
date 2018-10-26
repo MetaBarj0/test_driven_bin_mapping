@@ -42,3 +42,11 @@ TEST( string_manipulations, multiple_char_string_starts_with )
 
     ASSERT_FALSE( Qx::StringStartsWith( lString, "abc" ) );
 }
+
+
+TEST( string_manipulations, same_size_strings_with_different_chars)
+{
+    Qx::CIString lString{ "ab" };
+
+    ASSERT_FALSE( Qx::StringStartsWith( lString, "aa" ) );
+}
