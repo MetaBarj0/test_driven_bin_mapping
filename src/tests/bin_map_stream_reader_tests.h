@@ -54,8 +54,6 @@ TEST( bin_map_stream_reader, extract_header )
 
     BinMapStreamReader lReader{ std::move( lStream ) };
 
-    BinMapStreamLine lLine = lReader.GetLine( '\n' );
-
     ASSERT_TRUE( lReader.GetLine( '\n' ).IsHeader() );
     ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );
     ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );

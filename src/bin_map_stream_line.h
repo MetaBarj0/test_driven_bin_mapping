@@ -15,6 +15,7 @@ public :
     BinMapStreamLine( std::string &&aContent ) noexcept;
 
     std::string ToString() const noexcept;
+    bool IsHeader() const noexcept;
 
 private :
     std::string mContent;

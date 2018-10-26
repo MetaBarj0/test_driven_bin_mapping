@@ -17,5 +17,13 @@ std::string BinMapStreamLine::ToString() const noexcept
     return mContent;
 }
 
+bool BinMapStreamLine::IsHeader() const noexcept
+{
+    const char lHeader[] = "test name";
+    ( void ) lHeader;
+
+    return {};
+}
+
 }
 }
