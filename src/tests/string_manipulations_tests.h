@@ -8,11 +8,20 @@
 
 using Qx::CIString;
 
-TEST( case_insensitive_string, equals_string_should_be_equivalent )
+TEST( case_insensitive_string, equal_strings_should_be_equivalent )
 {
     std::string lNormalString{ "lowercase string" };
 
     CIString lInsensitiveString{ "lowercase string" };
 
-    ASSERT_THAT( lNormalString, testing::StrEq( lInsensitiveString ) );
+    ASSERT_TRUE( lNormalString == lInsensitiveString );
+}
+
+TEST( case_insensitive_string, case_different_strings_should_be_equivalent )
+{
+    std::string lNormalString{ "lowercase string" };
+
+    CIString lInsensitiveString{ "LOWERCASE string" };
+
+    ASSERT_TRUE( lNormalString == lInsensitiveString );
 }
