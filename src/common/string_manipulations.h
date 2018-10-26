@@ -66,6 +66,9 @@ template< typename CharType, typename CharTraits, typename Allocator, std::size_
 static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
                               const CharType ( &aBuffer )[ N ] )
 {
+    if( aString.size() < N - 1 )
+        return false;
+
     if( aString[ 0 ] == aBuffer[ 0 ] )
         return true;
 
