@@ -69,10 +69,11 @@ static bool StringStartsWith( const std::basic_string< CharType, CharTraits, All
     if( aString.size() < N - 1 )
         return false;
 
-    if( aString[ 0 ] == aBuffer[ 0 ] )
-        return true;
+    for( std::size_t i = 0; i < N - 1; ++i )
+        if( ! CharTraits::eq( aString[ i ], aBuffer[ i ] ) )
+            return false;
 
-    return false;
+    return true;
 }
 
 }

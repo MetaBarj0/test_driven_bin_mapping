@@ -38,15 +38,29 @@ TEST( string_manipulations, one_char_string_starts_with_same_char )
 
 TEST( string_manipulations, multiple_char_string_starts_with )
 {
-    Qx::CIString lString{ "ab" };
+    Qx::CIString lString{ "aBa" };
 
-    ASSERT_FALSE( Qx::StringStartsWith( lString, "abc" ) );
+    ASSERT_TRUE( Qx::StringStartsWith( lString, "ab" ) );
 }
 
 
 TEST( string_manipulations, same_size_strings_with_different_chars)
 {
-    Qx::CIString lString{ "ab" };
+    Qx::CIString lString{ "abcd" };
 
-    ASSERT_FALSE( Qx::StringStartsWith( lString, "aa" ) );
+    ASSERT_FALSE( Qx::StringStartsWith( lString, "aabc" ) );
+}
+
+TEST( string_manipulations, non_empty_string_empty_pattern)
+{
+    Qx::CIString lString{ "abcd" };
+
+    ASSERT_TRUE( Qx::StringStartsWith( lString, "" ) );
+}
+
+TEST( string_manipulations, empty_string_empty_pattern)
+{
+    Qx::CIString lString{ "" };
+
+    ASSERT_TRUE( Qx::StringStartsWith( lString, "" ) );
 }
