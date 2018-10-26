@@ -8,7 +8,8 @@ CONFIG -= qt
 
 HEADERS += \
     lvm_wt_tests.h \
-    bin_map_stream_reader_tests.h
+    bin_map_stream_reader_tests.h \
+    string_manipulations_tests.h
 
 SOURCES += \
         main.cpp
