@@ -58,6 +58,17 @@ using basic_ci_string = std::basic_string< CharType, CharTraits, Allocator >;
 
 using CIString = basic_ci_string< char >;
 
+template< typename String, typename CharType, std::size_t N >
+static bool StringStartsWith( const String &, const CharType ( & )[ N ] );
+
+
+template< typename CharType, typename CharTraits, typename Allocator, std::size_t N >
+static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
+                              const CharType ( &aBuffer )[ N ] )
+{
+    return false;
+}
+
 }
 
 #endif // STRING_MANIPULATIONS_H
