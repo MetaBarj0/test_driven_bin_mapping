@@ -34,13 +34,29 @@ static void TestExtractedLineEquals( const BinMapStreamReader &aReader, const ch
 
 TEST( bin_map_stream_reader, extract_line )
 {
-    std::stringstream lHeaderStream;
-    lHeaderStream << "a line\n";
-    lHeaderStream << "another line";
-    lHeaderStream << " that is longer\n";
+    std::stringstream lStream;
+    lStream << "a line\n";
+    lStream << "another line";
+    lStream << " that is longer\n";
 
-    BinMapStreamReader lReader{ std::move( lHeaderStream ) };
+    BinMapStreamReader lReader{ std::move( lStream ) };
 
     TestExtractedLineEquals( lReader, "a line" );
     TestExtractedLineEquals( lReader, "another line that is longer" );
+}
+
+TEST( bin_map_stream_reader, extract_header )
+{
+    std::stringstream lStream;
+    lStream << "Test Name,STD TEST NUMBERS,Assigned  BIN#,Bin Name\n";
+    lStream << " GS SHORT,5,29,GS SHORT\n";
+    lStream << "Test Name,STD TEST NUMBERS,Assigned  BIN#,Bin Name\n";
+
+    BinMapStreamReader lReader{ std::move( lStream ) };
+
+    BinMapStreamLine lLine = lReader.GetLine( '\n' );
+
+    ASSERT_TRUE( lReader.GetLine( '\n' ).IsHeader() );
+    ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );
+    ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );
 }
