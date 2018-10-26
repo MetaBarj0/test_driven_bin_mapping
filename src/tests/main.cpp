@@ -1,5 +1,5 @@
 #include "lvm_wt_tests.h"
-#include "bin_map_file_reader_tests.h"
+#include "bin_map_stream_reader_tests.h"
 
 #include <gtest/gtest.h>
 
