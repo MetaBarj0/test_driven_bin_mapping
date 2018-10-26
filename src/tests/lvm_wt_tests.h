@@ -28,7 +28,18 @@ TEST(lvm_wt, instantiate_bin_map_store_with_invalid_stream_content )
     std::stringstream lStream;
     lStream << "foo," << "bar," << "baz\n";
 
-    LvmWtBinMapStore store{ std::make_unique< BinMapStreamReader >( std::move( lStream ) ) };
+    LvmWtBinMapStore lStore{ std::make_unique< BinMapStreamReader >( std::move( lStream ) ) };
 
-    ASSERT_TRUE( store.IsEmpty() );
+    ASSERT_TRUE( lStore.IsEmpty() );
+}
+
+TEST( lvm_wt, instantiate_bin_map_store_with_valid_stream_content )
+{
+    std::stringstream lValidStream;
+    lValidStream << "Test Name,STD TEST NUMBERS,Assigned  BIN#,Bin Name\n";
+    lValidStream << " GS SHORT,5,29,GS SHORT\n";
+
+    LvmWtBinMapStore lStore{ std::make_unique< BinMapStreamReader >( std::move( lValidStream ) ) };
+
+    ASSERT_TRUE( ! lStore.IsEmpty() );
 }
