@@ -22,17 +22,23 @@ TEST( case_insensitive_string, case_different_strings_should_be_equivalent )
     ASSERT_TRUE( lCaseInsensitiveString == "LOWERCASE string" );
 }
 
-TEST( string_manipulations, empty_string_start_with_always_fail )
+TEST( string_manipulations, empty_string_starts_with_always_fail )
 {
     Qx::CIString lEmptyStr;
 
     ASSERT_FALSE( Qx::StringStartsWith( lEmptyStr, "starting of a string" ) );
 }
 
-
-TEST( string_manipulations, one_char_string_start_with_same_char )
+TEST( string_manipulations, one_char_string_starts_with_same_char )
 {
     Qx::CIString lString{ "a" };
 
     ASSERT_TRUE( Qx::StringStartsWith( lString, "a" ) );
+}
+
+TEST( string_manipulations, multiple_char_string_starts_with )
+{
+    Qx::CIString lString{ "ab" };
+
+    ASSERT_FALSE( Qx::StringStartsWith( lString, "abc" ) );
 }
