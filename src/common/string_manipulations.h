@@ -7,7 +7,6 @@
 namespace Qx
 {
 
-
 template< typename CharType,
           typename = std::enable_if_t< std::is_same< CharType, char >::value ||
                                        std::is_same< CharType, wchar_t >::value ||

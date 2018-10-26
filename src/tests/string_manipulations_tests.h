@@ -21,3 +21,10 @@ TEST( case_insensitive_string, case_different_strings_should_be_equivalent )
 
     ASSERT_TRUE( lCaseInsensitiveString == "LOWERCASE string" );
 }
+
+TEST( string_manipulations, empty_string_start_with_always_fail )
+{
+    Qx::CIString lEmptyStr;
+
+    ASSERT_FALSE( Qx::StringStartsWith( lEmptyStr, "starting of a string" ) );
+}
