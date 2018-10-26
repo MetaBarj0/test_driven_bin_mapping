@@ -6,7 +6,7 @@
 namespace Qx
 {
 
-using CaseInsensitiveString = std::string;
+using CIString = std::string;
 
 }
 
