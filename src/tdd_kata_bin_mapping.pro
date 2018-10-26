@@ -22,4 +22,5 @@ HEADERS += \
     common/exceptions.h \
     readable_binmap_content.h \
     bin_map_stream_reader.h \
-    bin_map_stream_line.h
+    bin_map_stream_line.h \
+    common/string_manipulations.h
