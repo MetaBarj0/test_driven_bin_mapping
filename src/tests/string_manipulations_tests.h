@@ -28,3 +28,11 @@ TEST( string_manipulations, empty_string_start_with_always_fail )
 
     ASSERT_FALSE( Qx::StringStartsWith( lEmptyStr, "starting of a string" ) );
 }
+
+
+TEST( string_manipulations, one_char_string_start_with_same_char )
+{
+    Qx::CIString lString{ "a" };
+
+    ASSERT_TRUE( Qx::StringStartsWith( lString, "a" ) );
+}
