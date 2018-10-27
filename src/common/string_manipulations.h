@@ -66,14 +66,9 @@ template< typename CharType, typename CharTraits, typename Allocator, std::size_
 static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
                               const CharType ( &aBuffer )[ N ] ) noexcept
 {
-    if( aString.size() < N - 1 )
-        return false;
+    std::basic_string< CharType, CharTraits, Allocator > lPattern{ aBuffer };
 
-    for( std::size_t i = 0; i < N - 1; ++i )
-        if( ! CharTraits::eq( aString[ i ], aBuffer[ i ] ) )
-            return false;
-
-    return true;
+    return StringStartsWith( aString, lPattern );
 }
 
 template< typename CharType, typename CharTraits, typename AllocatorReference, typename AllocatorPattern >

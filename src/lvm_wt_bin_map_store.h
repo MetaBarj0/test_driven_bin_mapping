@@ -25,7 +25,7 @@ public :
     Qx::CIString GetHeaderLineStart() const noexcept override;
     char GetFieldDelimiter() const noexcept override;
     char GetEndOfLine() const noexcept override;
-    void SetHeaderLineToggle() noexcept override;
+    void SetHeaderLineDetectedToggle() noexcept override;
     bool IsHeaderLineDetected() const noexcept override;
 
 private :

@@ -13,7 +13,7 @@ struct FakeLvmWtBinMapStore : public Qx::BinMapping::StoreableBinMap
     char GetEndOfLine() const noexcept override
     { return '\n'; }
 
-    void SetHeaderLineToggle() noexcept override
+    void SetHeaderLineDetectedToggle() noexcept override
     { mIsHeaderLineDetected = true; }
 
     bool IsHeaderLineDetected() const noexcept override

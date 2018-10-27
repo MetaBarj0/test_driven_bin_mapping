@@ -36,16 +36,7 @@ public :
         bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aStoreable.GetEndOfLine() ) );
 
         if( lResult )
-        {
-            bool lIsHeader = false;
-            if( ! aStoreable.IsHeaderLineDetected() )
-                lIsHeader = StringStartsWith( Qx::CIString{ lLine.c_str() }, aStoreable.GetHeaderLineStart() );
-
-            if( lIsHeader )
-                aStoreable.SetHeaderLineToggle();
-
-            return BinMapStreamLine{ std::move( lLine ), lIsHeader };
-        }
+            return BinMapStreamLine{ lLine, IsProcessedHeaderLine( lLine, aStoreable ) };
 
         return {};
     }
@@ -54,6 +45,18 @@ private :
     bool IsReadyInternal() const
     {
         return ( mStream->good() && ( mStream->peek() != InputStream::traits_type::eof() ) );
+    }
+
+    bool IsProcessedHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
+    {
+        bool lIsHeader = false;
+        if( ! aStoreable.IsHeaderLineDetected() )
+            lIsHeader = StringStartsWith( Qx::CIString{ aLine.c_str() }, aStoreable.GetHeaderLineStart() );
+
+        if( lIsHeader )
+            aStoreable.SetHeaderLineDetectedToggle();
+
+        return lIsHeader;
     }
 
 private :

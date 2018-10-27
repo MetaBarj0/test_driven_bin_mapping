@@ -15,7 +15,7 @@ struct StoreableBinMap
     virtual Qx::CIString GetHeaderLineStart() const noexcept = 0;
     virtual char GetFieldDelimiter() const noexcept = 0;
     virtual char GetEndOfLine() const noexcept = 0;
-    virtual void SetHeaderLineToggle() noexcept = 0;
+    virtual void SetHeaderLineDetectedToggle() noexcept = 0;
     virtual bool IsHeaderLineDetected() const noexcept = 0;
 };
 

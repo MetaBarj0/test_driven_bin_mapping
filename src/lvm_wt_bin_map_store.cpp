@@ -41,7 +41,7 @@ char LvmWtBinMapStore::GetEndOfLine() const noexcept
     return '\n';
 }
 
-void LvmWtBinMapStore::SetHeaderLineToggle() noexcept
+void LvmWtBinMapStore::SetHeaderLineDetectedToggle() noexcept
 {
     mIsHeaderLineDetected = true;
 }
