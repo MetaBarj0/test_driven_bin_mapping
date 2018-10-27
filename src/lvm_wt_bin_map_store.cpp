@@ -3,6 +3,7 @@
 #include "common/exceptions.h"
 #include "lvm_wt_exceptions.h"
 #include "bin_map_stream_reader.h"
+#include "common/string_manipulations.h"
 
 #include <memory>
 
@@ -23,6 +24,31 @@ LvmWtBinMapItem LvmWtBinMapStore::GetBinMapItemByKey(int aKey) const
 bool LvmWtBinMapStore::IsEmpty() const noexcept
 {
     return true;
+}
+
+Qx::CIString LvmWtBinMapStore::GetHeaderLineStart() const noexcept
+{
+    return { "test name" };
+}
+
+char LvmWtBinMapStore::GetFieldDelimiter() const noexcept
+{
+    return ',';
+}
+
+char LvmWtBinMapStore::GetEndOfLine() const noexcept
+{
+    return '\n';
+}
+
+void LvmWtBinMapStore::SetHeaderLineToggle() noexcept
+{
+    mIsHeaderLineDetected = true;
+}
+
+bool LvmWtBinMapStore::IsHeaderLineDetected() const noexcept
+{
+    return  mIsHeaderLineDetected;
 }
 
 }

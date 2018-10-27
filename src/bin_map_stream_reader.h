@@ -4,6 +4,8 @@
 #include "readable_binmap_content.h"
 #include "common/exceptions.h"
 #include "bin_map_stream_line.h"
+#include "common/storeable_bin_map.h"
+#include "common/string_manipulations.h"
 
 #include <iosfwd>
 #include <memory>
@@ -28,12 +30,24 @@ public :
 
     bool IsReady() const noexcept override { return IsReadyInternal(); }
 
-    BinMapStreamLine GetLine( char aDelimiter ) const noexcept
+    BinMapStreamLine GetLineFor( StoreableBinMap &aStoreable ) const noexcept
     {
         std::string lLine;
-        bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aDelimiter ) );
+        bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aStoreable.GetEndOfLine() ) );
 
-        return lResult ? BinMapStreamLine{ std::move( lLine ), false } : BinMapStreamLine{};
+        if( lResult )
+        {
+            bool lIsHeader = false;
+            if( ! aStoreable.IsHeaderLineDetected() )
+                lIsHeader = StringStartsWith( Qx::CIString{ lLine.c_str() }, aStoreable.GetHeaderLineStart() );
+
+            if( lIsHeader )
+                aStoreable.SetHeaderLineToggle();
+
+            return BinMapStreamLine{ std::move( lLine ), lIsHeader };
+        }
+
+        return {};
     }
 
 private :

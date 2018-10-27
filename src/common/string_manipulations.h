@@ -59,18 +59,33 @@ using basic_ci_string = std::basic_string< CharType, CharTraits, Allocator >;
 using CIString = basic_ci_string< char >;
 
 template< typename String, typename CharType, std::size_t N >
-static bool StringStartsWith( const String &, const CharType ( & )[ N ] );
+static bool StringStartsWith( const String &, const CharType ( & )[ N ] ) noexcept;
 
 
 template< typename CharType, typename CharTraits, typename Allocator, std::size_t N >
 static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
-                              const CharType ( &aBuffer )[ N ] )
+                              const CharType ( &aBuffer )[ N ] ) noexcept
 {
     if( aString.size() < N - 1 )
         return false;
 
     for( std::size_t i = 0; i < N - 1; ++i )
         if( ! CharTraits::eq( aString[ i ], aBuffer[ i ] ) )
+            return false;
+
+    return true;
+}
+
+template< typename CharType, typename CharTraits, typename AllocatorReference, typename AllocatorPattern >
+static bool StringStartsWith( const std::basic_string< CharType, CharTraits, AllocatorReference > &aReferenceString,
+                              const std::basic_string< CharType, CharTraits, AllocatorPattern > &aPatternString ) noexcept
+{
+    if( aReferenceString.size() < aPatternString.size() )
+        return false;
+
+    std::size_t i = 0;
+    for( CharType lChar : aPatternString )
+        if( ! CharTraits::eq( lChar, aReferenceString[ i++ ] ) )
             return false;
 
     return true;

@@ -6,6 +6,7 @@
 #include "common/exceptions.h"
 #include "bin_map_stream_reader.h"
 #include "bin_map_stream_line.h"
+#include "test_doubles/fake_lvm_wt_bin_map_store.h"
 
 #include <sstream>
 
@@ -27,7 +28,8 @@ TEST(bin_map_stream_reader, instantiate_with_valid_stream)
 
 static void TestExtractedLineEquals( const BinMapStreamReader &aReader, const char *aText )
 {
-    BinMapStreamLine lLine = aReader.GetLine( '\n' );
+    FakeLvmWtBinMapStore lStore{};
+    BinMapStreamLine lLine = aReader.GetLineFor( lStore );
 
     ASSERT_THAT( lLine.ToString(), testing::StrEq( aText ) );
 }
@@ -54,7 +56,8 @@ TEST( bin_map_stream_reader, extract_header )
 
     BinMapStreamReader lReader{ std::move( lStream ) };
 
-    ASSERT_TRUE( lReader.GetLine( '\n' ).IsHeader() );
-    ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );
-    ASSERT_FALSE( lReader.GetLine( '\n' ).IsHeader() );
+    FakeLvmWtBinMapStore lStore{};
+    ASSERT_TRUE( lReader.GetLineFor( lStore ).IsHeader() );
+    ASSERT_FALSE( lReader.GetLineFor( lStore ).IsHeader() );
+    ASSERT_FALSE( lReader.GetLineFor( lStore ).IsHeader() );
 }
