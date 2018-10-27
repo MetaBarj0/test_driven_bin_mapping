@@ -7,10 +7,9 @@ namespace Qx
 namespace BinMapping
 {
 
-BinMapStreamLine::BinMapStreamLine(std::string &&aContent) noexcept
-{
-    mContent = std::move( aContent );
-}
+BinMapStreamLine::BinMapStreamLine( std::string &&aContent, bool aIsHeader ) noexcept :
+    mContent{ std::move( aContent ) },
+    mIsHeader{ aIsHeader } {}
 
 std::string BinMapStreamLine::ToString() const noexcept
 {
@@ -19,10 +18,7 @@ std::string BinMapStreamLine::ToString() const noexcept
 
 bool BinMapStreamLine::IsHeader() const noexcept
 {
-    const char lHeader[] = "test name";
-    ( void ) lHeader;
-
-    return {};
+    return mIsHeader;
 }
 
 }

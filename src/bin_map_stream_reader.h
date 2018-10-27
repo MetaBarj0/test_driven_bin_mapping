@@ -33,7 +33,7 @@ public :
         std::string lLine;
         bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aDelimiter ) );
 
-        return lResult ? BinMapStreamLine{ std::move( lLine ) } : BinMapStreamLine{};
+        return lResult ? BinMapStreamLine{ std::move( lLine ), false } : BinMapStreamLine{};
     }
 
 private :

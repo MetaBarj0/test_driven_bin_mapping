@@ -12,13 +12,14 @@ class BinMapStreamLine
 {
 public :
     BinMapStreamLine() = default;
-    BinMapStreamLine( std::string &&aContent ) noexcept;
+    BinMapStreamLine( std::string &&aContent , bool aIsHeader ) noexcept;
 
     std::string ToString() const noexcept;
     bool IsHeader() const noexcept;
 
 private :
     std::string mContent;
+    bool mIsHeader;
 };
 
 }
