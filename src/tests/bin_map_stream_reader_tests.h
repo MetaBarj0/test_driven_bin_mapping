@@ -57,7 +57,21 @@ TEST( bin_map_stream_reader, extract_header )
     BinMapStreamReader lReader{ std::move( lStream ) };
 
     FakeLvmWtBinMapStore lStore{};
+
     ASSERT_TRUE( lReader.GetLineFor( lStore ).IsHeader() );
     ASSERT_FALSE( lReader.GetLineFor( lStore ).IsHeader() );
     ASSERT_FALSE( lReader.GetLineFor( lStore ).IsHeader() );
+}
+
+TEST( bin_map_stream_reader, empty_line_is_not_a_comment )
+{
+    std::stringstream lStream;
+
+    lStream << "\n";
+
+    BinMapStreamReader lReader{ std::move( lStream ) };
+
+    FakeLvmWtBinMapStore lStore{};
+
+    ASSERT_FALSE( lReader.GetLineFor( lStore ).IsComment() );
 }
