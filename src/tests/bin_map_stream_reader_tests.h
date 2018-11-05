@@ -88,3 +88,16 @@ TEST( bin_map_stream_reader, comment_symbol_starting_line_is_a_comment )
 
     ASSERT_TRUE( lReader.GetLineFor( lStore ).IsComment() );
 }
+
+TEST( bin_map_stream_reader, spaces_and_comment_symbol_starting_line_is_a_comment )
+{
+    std::stringstream lStream;
+
+    lStream << "  # spaces an comment symbol is a comment\n";
+
+    BinMapStreamReader lReader{ std::move( lStream ) };
+
+    FakeLvmWtBinMapStore lStore{};
+
+    ASSERT_TRUE( lReader.GetLineFor( lStore ).IsComment() );
+}
