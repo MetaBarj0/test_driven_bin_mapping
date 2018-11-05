@@ -49,7 +49,7 @@ private :
 
     bool IsCommentLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
     {
-        return StringStartsWith( aLine, aStoreable.GetCommentLineStart() );
+        return false;
     }
 
     bool IsProcessedHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const

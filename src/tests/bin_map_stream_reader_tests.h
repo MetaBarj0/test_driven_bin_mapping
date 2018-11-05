@@ -75,3 +75,16 @@ TEST( bin_map_stream_reader, empty_line_is_not_a_comment )
 
     ASSERT_FALSE( lReader.GetLineFor( lStore ).IsComment() );
 }
+
+TEST( bin_map_stream_reader, comment_symbol_starting_line_is_a_comment )
+{
+    std::stringstream lStream;
+
+    lStream << "# a comment\n";
+
+    BinMapStreamReader lReader{ std::move( lStream ) };
+
+    FakeLvmWtBinMapStore lStore{};
+
+    ASSERT_TRUE( lReader.GetLineFor( lStore ).IsComment() );
+}
