@@ -36,9 +36,7 @@ public :
         bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aStoreable.GetEndOfLine() ) );
 
         if( lResult )
-            return BinMapStreamLine{ lLine,
-                                     IsProcessedHeaderLine( lLine, aStoreable ),
-                                     IsCommentLine( lLine, aStoreable ) };
+            return BinMapStreamLine{ lLine, GetLineKind( lLine, aStoreable ) };
 
         return {};
     }
@@ -64,6 +62,17 @@ private :
             aStoreable.SetHeaderLineDetectedToggle();
 
         return lIsHeader;
+    }
+
+    BinMapStreamLineKinds GetLineKind( const std::string &aLine, StoreableBinMap &aStoreable ) const
+    {
+        if( IsCommentLine( aLine, aStoreable ) )
+            return BinMapStreamLineKinds::comment;
+
+        if( IsProcessedHeaderLine( aLine, aStoreable ) )
+            return BinMapStreamLineKinds::header;
+
+        return BinMapStreamLineKinds::unspecified;
     }
 
 private :

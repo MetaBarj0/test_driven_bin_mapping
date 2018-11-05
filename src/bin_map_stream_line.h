@@ -8,11 +8,19 @@ namespace Qx
 namespace BinMapping
 {
 
+enum class BinMapStreamLineKinds
+{
+    header,
+    comment,
+    fields,
+    unspecified
+};
+
 class BinMapStreamLine
 {
 public :
     BinMapStreamLine() = default;
-    BinMapStreamLine( const std::string &aContent , bool aIsHeader, bool aIsComment ) noexcept;
+    BinMapStreamLine( const std::string &aContent, BinMapStreamLineKinds aKind ) noexcept;
 
     std::string ToString() const noexcept;
     bool IsHeader() const noexcept;
@@ -20,8 +28,7 @@ public :
 
 private :
     std::string mContent;
-    bool mIsHeader = false;
-    bool mIsComment = false;
+    BinMapStreamLineKinds mKind = BinMapStreamLineKinds::unspecified;
 };
 
 }
