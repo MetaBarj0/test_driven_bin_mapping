@@ -23,6 +23,7 @@ public :
     LvmWtBinMapItem GetBinMapItemByKey( int aKey ) const;
     bool IsEmpty() const noexcept;
     Qx::CIString GetHeaderLineStart() const noexcept override;
+    char GetCommentLineStart() const noexcept override;
     char GetFieldDelimiter() const noexcept override;
     char GetEndOfLine() const noexcept override;
     void SetHeaderLineDetectedToggle() noexcept override;

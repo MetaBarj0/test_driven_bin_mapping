@@ -31,6 +31,11 @@ Qx::CIString LvmWtBinMapStore::GetHeaderLineStart() const noexcept
     return { "test name" };
 }
 
+char LvmWtBinMapStore::GetCommentLineStart() const noexcept
+{
+    return '#';
+}
+
 char LvmWtBinMapStore::GetFieldDelimiter() const noexcept
 {
     return ',';

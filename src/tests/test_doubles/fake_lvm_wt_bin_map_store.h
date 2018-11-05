@@ -7,6 +7,9 @@ struct FakeLvmWtBinMapStore : public Qx::BinMapping::StoreableBinMap
     Qx::CIString GetHeaderLineStart() const noexcept override
     { return { "test name" }; }
 
+    char GetCommentLineStart() const noexcept override
+    { return '#'; }
+
     char GetFieldDelimiter() const noexcept override
     { return ','; }
 

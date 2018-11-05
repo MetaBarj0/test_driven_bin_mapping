@@ -58,18 +58,8 @@ using basic_ci_string = std::basic_string< CharType, CharTraits, Allocator >;
 
 using CIString = basic_ci_string< char >;
 
-template< typename String, typename CharType, std::size_t N >
-static bool StringStartsWith( const String &, const CharType ( & )[ N ] ) noexcept;
-
-
-template< typename CharType, typename CharTraits, typename Allocator, std::size_t N >
-static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
-                              const CharType ( &aBuffer )[ N ] ) noexcept
-{
-    std::basic_string< CharType, CharTraits, Allocator > lPattern{ aBuffer };
-
-    return StringStartsWith( aString, lPattern );
-}
+template< typename String, typename PatternType >
+static bool StringStartsWith( const String &, PatternType ) noexcept;
 
 template< typename CharType, typename CharTraits, typename AllocatorReference, typename AllocatorPattern >
 static bool StringStartsWith( const std::basic_string< CharType, CharTraits, AllocatorReference > &aReferenceString,
@@ -84,6 +74,24 @@ static bool StringStartsWith( const std::basic_string< CharType, CharTraits, All
             return false;
 
     return true;
+}
+
+template< typename CharType, typename CharTraits, typename Allocator >
+static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
+                              CharType aChar ) noexcept
+{
+    const std::basic_string< CharType, CharTraits, Allocator > lPattern{ { aChar } };
+
+    return StringStartsWith( aString, lPattern );
+}
+
+template< typename CharType, typename CharTraits, typename Allocator, std::size_t N >
+static bool StringStartsWith( const std::basic_string< CharType, CharTraits, Allocator > &aString,
+                              const CharType ( &aBuffer )[ N ] ) noexcept
+{
+    std::basic_string< CharType, CharTraits, Allocator > lPattern{ aBuffer };
+
+    return StringStartsWith( aString, lPattern );
 }
 
 }

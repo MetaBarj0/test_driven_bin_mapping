@@ -36,7 +36,9 @@ public :
         bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aStoreable.GetEndOfLine() ) );
 
         if( lResult )
-            return BinMapStreamLine{ lLine, IsProcessedHeaderLine( lLine, aStoreable ) };
+            return BinMapStreamLine{ lLine,
+                                     IsProcessedHeaderLine( lLine, aStoreable ),
+                                     IsCommentLine( lLine, aStoreable ) };
 
         return {};
     }
@@ -45,6 +47,11 @@ private :
     bool IsReadyInternal() const
     {
         return ( mStream->good() && ( mStream->peek() != InputStream::traits_type::eof() ) );
+    }
+
+    bool IsCommentLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
+    {
+        return StringStartsWith( aLine, aStoreable.GetCommentLineStart() );
     }
 
     bool IsProcessedHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
