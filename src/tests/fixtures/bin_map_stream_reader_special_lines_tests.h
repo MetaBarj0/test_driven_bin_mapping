@@ -9,6 +9,7 @@
 #include <memory>
 #include <sstream>
 #include <utility>
+#include <string>
 
 class bin_map_stream_reader_special_lines : public ::testing::Test
 {
@@ -76,4 +77,15 @@ TEST_F( bin_map_stream_reader_special_lines, spaces_and_comment_symbol_starting_
     UseStreamForTest( std::move( lStream ) );
 
     ASSERT_TRUE( GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() ).IsComment() );
+}
+
+TEST_F( bin_map_stream_reader_special_lines, empty_line_gives_no_fields )
+{
+    std::stringstream lStream;
+    lStream << '\n';
+
+    UseStreamForTest( std::move( lStream ) );
+
+    ASSERT_TRUE( GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
+                 .ToFields< std::string, int, int, std::string >().IsEmpty() );
 }
