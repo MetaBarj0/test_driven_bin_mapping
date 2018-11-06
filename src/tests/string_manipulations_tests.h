@@ -78,3 +78,10 @@ TEST( string_manipulations, trim_a_string_without_spaces_left_side_of_spaces_giv
 
     ASSERT_TRUE( lString == Qx::TrimStringLeftSideOf( lString, ' ' ) );
 }
+
+TEST( string_manipulations, trim_a_string_with_spaces_left_side_of_spaces_gives_a_trimmed_string )
+{
+    Qx::CIString lString{ "   a string with spaces at left side   " };
+
+    ASSERT_TRUE( Qx::CIString{ "a string with spaces at left side   " } == Qx::TrimStringLeftSideOf( lString, ' ' ) );
+}
