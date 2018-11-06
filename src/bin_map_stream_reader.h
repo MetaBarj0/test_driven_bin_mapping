@@ -54,9 +54,10 @@ private :
         return StringStartsWith( lTrimmedOfSpacesString, aStoreable.GetCommentLineStart() );
     }
 
-    bool IsProcessedHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
+    bool IsHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
     {
         bool lIsHeader = false;
+
         if( ! aStoreable.IsHeaderLineDetected() )
             lIsHeader = StringStartsWith( Qx::CIString{ aLine.c_str() }, aStoreable.GetHeaderLineStart() );
 
@@ -71,7 +72,7 @@ private :
         if( IsCommentLine( aLine, aStoreable ) )
             return BinMapStreamLineKinds::comment;
 
-        if( IsProcessedHeaderLine( aLine, aStoreable ) )
+        if( IsHeaderLine( aLine, aStoreable ) )
             return BinMapStreamLineKinds::header;
 
         return BinMapStreamLineKinds::unspecified;
