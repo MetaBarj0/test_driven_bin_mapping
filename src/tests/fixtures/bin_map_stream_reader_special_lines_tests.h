@@ -106,3 +106,32 @@ TEST_F( bin_map_stream_reader_special_lines, correct_type_mapping_gives_fields )
 
     ASSERT_FALSE( lFields.IsEmpty() );
 }
+
+TEST_F( bin_map_stream_reader_special_lines, incorrect_type_mapping_gives_no_fields )
+{
+    std::stringstream lStream;
+    lStream << "foo\n";
+
+    UseStreamForTest( std::move( lStream ) );
+
+    const auto &lFields =
+        GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
+        .ToFields< int >( GetModifiableMockedStore() );
+
+    ASSERT_TRUE( lFields.IsEmpty() );
+}
+
+TEST_F( bin_map_stream_reader_special_lines, two_correct_types_give_fields )
+{
+
+    std::stringstream lStream;
+    lStream << "foo, bar\n";
+
+    UseStreamForTest( std::move( lStream ) );
+
+    const auto &lFields =
+        GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
+        .ToFields< std::string, std::string >( GetModifiableMockedStore() );
+
+    ASSERT_FALSE( lFields.IsEmpty() );
+}
