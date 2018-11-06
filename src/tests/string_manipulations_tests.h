@@ -71,3 +71,10 @@ TEST( string_manipulations, trim_an_empty_string_left_side_of_spaces_gives_an_em
 
     ASSERT_TRUE( lEmptyString == Qx::TrimStringLeftSideOf( lEmptyString, ' ' ) );
 }
+
+TEST( string_manipulations, trim_a_string_without_spaces_left_side_of_spaces_gives_the_same_string )
+{
+    Qx::CIString lString{ "a string without spaces at left side   " };
+
+    ASSERT_TRUE( lString == Qx::TrimStringLeftSideOf( lString, ' ' ) );
+}
