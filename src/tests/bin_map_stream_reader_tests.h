@@ -89,7 +89,7 @@ TEST( bin_map_stream_reader, comment_symbol_starting_line_is_a_comment )
     ASSERT_TRUE( lReader.GetLineFor( lStore ).IsComment() );
 }
 
-TEST( bin_map_stream_reader, spaces_and_comment_symbol_starting_line_is_a_comment )
+TEST( bin_map_stream_reader, DISABLED_spaces_and_comment_symbol_starting_line_is_a_comment )
 {
     std::stringstream lStream;
 

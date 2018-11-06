@@ -94,6 +94,17 @@ static bool StringStartsWith( const std::basic_string< CharType, CharTraits, All
     return StringStartsWith( aString, lPattern );
 }
 
+template< typename String, typename CharTypeToTrim >
+static String TrimStringLeftSideOf( const String &, CharTypeToTrim );
+
+template< typename CharType, typename CharTraits, typename Allocator >
+static auto TrimStringLeftSideOf( const std::basic_string< CharType, CharTraits, Allocator > &aString, CharType aChar )
+{
+    ( void )aString;
+    ( void )aChar;
+    return std::basic_string< CharType, CharTraits, Allocator >{};
+}
+
 }
 
 #endif // STRING_MANIPULATIONS_H
