@@ -75,7 +75,7 @@ private :
         if( IsHeaderLine( aLine, aStoreable ) )
             return BinMapStreamLineKinds::header;
 
-        return BinMapStreamLineKinds::unspecified;
+        return BinMapStreamLineKinds::fields;
     }
 
 private :

@@ -86,6 +86,9 @@ TEST_F( bin_map_stream_reader_special_lines, empty_line_gives_no_fields )
 
     UseStreamForTest( std::move( lStream ) );
 
-    ASSERT_TRUE( GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
-                 .ToFields< std::string, int, int, std::string >().IsEmpty() );
+    const auto &lFields =
+        GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
+        .ToFields< std::string, int, int, std::string >( GetModifiableMockedStore() );
+
+    ASSERT_TRUE( lFields.IsEmpty() );
 }

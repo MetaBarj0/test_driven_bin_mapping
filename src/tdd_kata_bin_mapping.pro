@@ -24,4 +24,5 @@ HEADERS += \
     bin_map_stream_reader.h \
     bin_map_stream_line.h \
     common/string_manipulations.h \
-    common/storeable_bin_map.h
+    common/storeable_bin_map.h \
+    bin_map_stream_line_fields.h
