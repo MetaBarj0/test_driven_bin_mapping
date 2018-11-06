@@ -92,3 +92,17 @@ TEST_F( bin_map_stream_reader_special_lines, empty_line_gives_no_fields )
 
     ASSERT_TRUE( lFields.IsEmpty() );
 }
+
+TEST_F( bin_map_stream_reader_special_lines, correct_type_mapping_gives_fields )
+{
+    std::stringstream lStream;
+    lStream << "42\n";
+
+    UseStreamForTest( std::move( lStream ) );
+
+    const auto &lFields =
+        GetStreamReaderToTest().GetLineFor( GetModifiableMockedStore() )
+        .ToFields< int >( GetModifiableMockedStore() );
+
+    ASSERT_FALSE( lFields.IsEmpty() );
+}
