@@ -64,3 +64,10 @@ TEST( string_manipulations, empty_string_empty_pattern)
 
     ASSERT_TRUE( Qx::StringStartsWith( lString, "" ) );
 }
+
+TEST( string_manipulations, trim_an_empty_string_left_side_of_spaces_gives_an_empty_string )
+{
+    Qx::CIString lEmptyString;
+
+    ASSERT_TRUE( lEmptyString == Qx::TrimStringLeftSideOf( lEmptyString, ' ' ) );
+}
