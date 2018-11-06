@@ -31,10 +31,9 @@ public :
     bool IsComment() const noexcept;
 
     template< typename... FieldTypes >
-    BinMapStreamLineFields< FieldTypes... > ToFields( const StoreableBinMap &aStore ) const noexcept
+    auto ToFields( const StoreableBinMap &aStore ) const noexcept
     {
-        ( void ) aStore;
-        return {};
+        return BinMapStreamLineFields< FieldTypes... >{ aStore, mContent };
     }
 
 private :
