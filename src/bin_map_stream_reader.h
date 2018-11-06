@@ -49,6 +49,8 @@ private :
 
     bool IsCommentLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
     {
+        const auto lTrimmedOfSpacesString = TrimStringLeftSideOf( aLine, ' ' );
+
         return StringStartsWith( aLine, aStoreable.GetCommentLineStart() );
     }
 
