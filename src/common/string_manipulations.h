@@ -100,8 +100,14 @@ static String TrimStringLeftSideOf( const String &, CharTypeToTrim );
 template< typename CharType, typename CharTraits, typename Allocator >
 static auto TrimStringLeftSideOf( const std::basic_string< CharType, CharTraits, Allocator > &aString, CharType aChar )
 {
-    ( void ) aChar;
-    return aString;
+    using StringType = std::basic_string< CharType, CharTraits, Allocator >;
+    using iterator = typename StringType::const_iterator;
+
+    iterator lStartTrimmed = std::cbegin( aString );
+
+    for( ; lStartTrimmed != std::cend( aString ) && CharTraits::eq( *lStartTrimmed, aChar ); ++lStartTrimmed );
+
+    return StringType{ lStartTrimmed, std::cend( aString ) };
 }
 
 }
