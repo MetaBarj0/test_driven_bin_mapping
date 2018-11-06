@@ -51,7 +51,7 @@ private :
     {
         const auto lTrimmedOfSpacesString = TrimStringLeftSideOf( aLine, ' ' );
 
-        return StringStartsWith( aLine, aStoreable.GetCommentLineStart() );
+        return StringStartsWith( lTrimmedOfSpacesString, aStoreable.GetCommentLineStart() );
     }
 
     bool IsProcessedHeaderLine( const std::string &aLine, StoreableBinMap &aStoreable ) const
