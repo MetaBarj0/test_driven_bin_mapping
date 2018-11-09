@@ -83,3 +83,14 @@ TEST( bin_map_stream_line_fields, out_of_range_index_for_field_value_must_throw 
 
     ASSERT_THROW( lFields[ 42 ], Qx::BinMapping::OutOfRangeFieldIndex );
 }
+
+TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
+{
+    std::string lLine{ "true, 3.141597, 42" };
+
+    FakeLvmWtBinMapStore lStore;
+
+    BinMapStreamLineFields< bool, double, int >lFields{ lStore, lLine };
+
+    ASSERT_THAT( lFields[ 1 ], testing::Eq( 3.141597 ) );
+}
