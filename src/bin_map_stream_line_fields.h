@@ -34,6 +34,14 @@ public :
     bool IsEmpty() const noexcept
     { return BinMapStreamLineFields< RemainingFieldTypes... >::IsEmpty() || ! mField.second; }
 
+    template< std::size_t aFieldIndex >
+    auto GetValueAt() const
+    {
+        return aFieldIndex == 0 ?
+               mField.first :
+               BinMapStreamLineFields< RemainingFieldTypes... >::template GetValueAt< aFieldIndex - 1 >();
+    }
+
 protected :
     using BinMapStreamLineFields< RemainingFieldTypes... >::GetNextDelimiterIterator;
     using BinMapStreamLineFields< RemainingFieldTypes... >::AssignStringToField;
@@ -68,9 +76,10 @@ public :
 
     bool IsEmpty() const noexcept { return ! mField.second; }
 
-    const LastFieldType & operator []( std::size_t aIndex ) const
+    template< std::size_t aFieldIndex >
+    const auto & GetValueAt() const
     {
-        if( aIndex > 0 )
+        if( aFieldIndex > 0 )
             throw OutOfRangeFieldIndex{};
 
         return mField.first;

@@ -70,7 +70,7 @@ TEST( bin_map_stream_line_fields, obtain_first_field_value_for_unique_field )
 
     BinMapStreamLineFields< bool >lFields{ lStore, lLine };
 
-    ASSERT_THAT( lFields[ 0 ], testing::Eq( true ) );
+    ASSERT_THAT( lFields.GetValueAt< 0 >(), testing::Eq( true ) );
 }
 
 TEST( bin_map_stream_line_fields, out_of_range_index_for_field_value_must_throw )
@@ -81,7 +81,7 @@ TEST( bin_map_stream_line_fields, out_of_range_index_for_field_value_must_throw 
 
     BinMapStreamLineFields< bool >lFields{ lStore, lLine };
 
-    ASSERT_THROW( lFields[ 42 ], Qx::BinMapping::OutOfRangeFieldIndex );
+    ASSERT_THROW( lFields.GetValueAt< 42 >(), Qx::BinMapping::OutOfRangeFieldIndex );
 }
 
 TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
@@ -92,5 +92,7 @@ TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
 
     BinMapStreamLineFields< bool, double, int >lFields{ lStore, lLine };
 
-    ASSERT_THAT( lFields[ 1 ], testing::Eq( 3.141597 ) );
+    ASSERT_THAT( lFields.GetValueAt< 1 >(), testing::Eq( 3.141597 ) );
+    ASSERT_THAT( lFields.GetValueAt< 0 >(), testing::Eq( true ) );
+    ASSERT_THAT( lFields.GetValueAt< 2 >(), testing::Eq( 42 ) );
 }
