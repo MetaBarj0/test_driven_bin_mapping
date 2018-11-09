@@ -23,32 +23,22 @@ public :
         BinMapStreamLineFields<RemainingFieldTypes...>{ aStore, GetLineForNextField( aStore, aLine ) },
         mField{ {}, false }
     {
-        const auto lDelimiter = aStore.GetFieldDelimiter();
-        auto lIterator = std::find_if( std::cbegin( aLine ),
-                                       std::cend( aLine ),
-                                       [ lDelimiter ]( char aChar ) { return aChar == lDelimiter; } );
+        auto lIterator = GetNextDelimiterIterator( aStore, aLine );
 
         if( lIterator != std::cend( aLine ) )
-        {
-            std::stringstream lStream;
-            lStream << std::string{ std::cbegin( aLine ), lIterator };
-            lStream >> mField.first;
-
-            mField.second = static_cast< bool >( lStream );
-        }
-
+            AssignStringToField( std::string{ std::cbegin( aLine ), lIterator }, mField );
     }
 
     bool IsEmpty() const noexcept
     { return BinMapStreamLineFields< RemainingFieldTypes... >::IsEmpty() || ! mField.second; }
 
 private :
+    using BinMapStreamLineFields< RemainingFieldTypes... >::GetNextDelimiterIterator;
+    using BinMapStreamLineFields< RemainingFieldTypes... >::AssignStringToField;
+
     auto GetLineForNextField( const StoreableBinMap &aStore, const std::string &aLine ) const
     {
-        const auto lDelimiter = aStore.GetFieldDelimiter();
-        auto lIterator = std::find_if( std::cbegin( aLine ),
-                                       std::cend( aLine ),
-                                       [ lDelimiter ]( char aChar ) { return aChar == lDelimiter; } );
+        auto lIterator = GetNextDelimiterIterator( aStore, aLine );
 
         if( lIterator != std::cend( aLine ) )
             ++lIterator;
@@ -67,25 +57,31 @@ public :
     BinMapStreamLineFields( const StoreableBinMap &aStore, const std::string &aLine ) :
         mField{ {}, false }
     {
-        const auto lDelimiter = aStore.GetFieldDelimiter();
-        auto lIterator = std::find_if( std::cbegin( aLine ),
-                                       std::cend( aLine ),
-                                       [ lDelimiter ]( char aChar ) { return aChar == lDelimiter; } );
+        auto lIterator = GetNextDelimiterIterator( aStore, aLine );
 
         if( lIterator == std::cend( aLine ) )
-        {
-            std::stringstream lStream;
-            lStream << aLine;
-            lStream >> mField.first;
-
-            mField.second = static_cast< bool >( lStream );
-        }
+            AssignStringToField( aLine, mField );
     }
 
     bool IsEmpty() const noexcept { return ! mField.second; }
 
-private :
-    std::string RemoveFirstFieldFromString( const std::string &aLine ) const noexcept { return aLine; }
+protected :
+    auto GetNextDelimiterIterator( const StoreableBinMap &aStore, const std::string &aLine ) const noexcept
+    {
+        return std::find_if( std::cbegin( aLine ),
+                             std::cend( aLine ),
+                             [ &aStore ]( char aChar ) { return aChar == aStore.GetFieldDelimiter(); } );
+    }
+
+    template< typename FieldType >
+    static void AssignStringToField( const std::string &aString, std::pair< FieldType, bool >& aField ) noexcept
+    {
+        std::stringstream lStream;
+        lStream << aString;
+        lStream >> aField.first;
+
+        aField.second = static_cast< bool >( lStream );
+    }
 
 private :
     std::pair< LastFieldType, bool > mField;
