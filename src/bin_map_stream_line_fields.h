@@ -2,6 +2,7 @@
 #define BIN_MAP_STREAM_LINE_FIELDS_H
 
 #include "common/storeable_bin_map.h"
+
 #include <string>
 #include <algorithm>
 #include <sstream>
@@ -65,6 +66,11 @@ public :
     }
 
     bool IsEmpty() const noexcept { return ! mField.second; }
+
+    const LastFieldType & operator []( std::size_t ) const
+    {
+        return mField.first;
+    }
 
 protected :
     auto GetNextDelimiterIterator( const StoreableBinMap &aStore, const std::string &aLine ) const noexcept
