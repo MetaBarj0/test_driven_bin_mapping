@@ -49,6 +49,7 @@ private :
         auto lIterator = std::find_if( std::cbegin( aLine ),
                                        std::cend( aLine ),
                                        [ lDelimiter ]( char aChar ) { return aChar == lDelimiter; } );
+
         if( lIterator != std::cend( aLine ) )
             ++lIterator;
 
@@ -63,14 +64,22 @@ template< typename LastFieldType >
 class BinMapStreamLineFields< LastFieldType >
 {
 public :
-    BinMapStreamLineFields( const StoreableBinMap &, const std::string &aLine ) :
+    BinMapStreamLineFields( const StoreableBinMap &aStore, const std::string &aLine ) :
         mField{ {}, false }
     {
-        std::stringstream lStream;
-        lStream << aLine;
-        lStream >> mField.first;
+        const auto lDelimiter = aStore.GetFieldDelimiter();
+        auto lIterator = std::find_if( std::cbegin( aLine ),
+                                       std::cend( aLine ),
+                                       [ lDelimiter ]( char aChar ) { return aChar == lDelimiter; } );
 
-        mField.second = static_cast< bool >( lStream );
+        if( lIterator == std::cend( aLine ) )
+        {
+            std::stringstream lStream;
+            lStream << aLine;
+            lStream >> mField.first;
+
+            mField.second = static_cast< bool >( lStream );
+        }
     }
 
     bool IsEmpty() const noexcept { return ! mField.second; }
