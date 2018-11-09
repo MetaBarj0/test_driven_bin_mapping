@@ -2,6 +2,7 @@
 #define BIN_MAP_STREAM_LINE_FIELDS_H
 
 #include "common/storeable_bin_map.h"
+#include "common/exceptions.h"
 
 #include <string>
 #include <algorithm>
@@ -67,8 +68,11 @@ public :
 
     bool IsEmpty() const noexcept { return ! mField.second; }
 
-    const LastFieldType & operator []( std::size_t ) const
+    const LastFieldType & operator []( std::size_t aIndex ) const
     {
+        if( aIndex > 0 )
+            throw OutOfRangeFieldIndex{};
+
         return mField.first;
     }
 

@@ -5,6 +5,7 @@
 
 #include "bin_map_stream_line_fields.h"
 #include "test_doubles/fake_lvm_wt_bin_map_store.h"
+#include "common/exceptions.h"
 
 #include <string>
 

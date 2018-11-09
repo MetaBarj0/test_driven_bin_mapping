@@ -9,6 +9,7 @@ namespace BinMapping
 {
 
 class InvalidStream: public std::exception {};
+class OutOfRangeFieldIndex : public std::exception {};
 
 }
 }
