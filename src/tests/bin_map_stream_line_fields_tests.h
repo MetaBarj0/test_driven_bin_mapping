@@ -59,3 +59,23 @@ TEST( bin_map_stream_line_fields, line_with_two_fields_give_no_fields_with_incor
 
     ASSERT_TRUE( lFields.IsEmpty() );
 }
+
+TEST( bin_map_stream_line_fields, no_fields_if_first_type_is_wrong )
+{
+    std::string lLine{ "foo, 42" };
+    FakeLvmWtBinMapStore lStore;
+
+    BinMapStreamLineFields< int, int > lFields{ lStore, lLine };
+
+    ASSERT_TRUE( lFields.IsEmpty() );
+}
+
+TEST( bin_map_stream_line_fields, no_fields_if_last_type_is_wrong )
+{
+    std::string lLine{ "foo, 42" };
+    FakeLvmWtBinMapStore lStore;
+
+    BinMapStreamLineFields< std::string, bool > lFields{ lStore, lLine };
+
+    ASSERT_TRUE( lFields.IsEmpty() );
+}
