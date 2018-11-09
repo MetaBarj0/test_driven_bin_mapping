@@ -32,10 +32,11 @@ public :
     bool IsEmpty() const noexcept
     { return BinMapStreamLineFields< RemainingFieldTypes... >::IsEmpty() || ! mField.second; }
 
-private :
+protected :
     using BinMapStreamLineFields< RemainingFieldTypes... >::GetNextDelimiterIterator;
     using BinMapStreamLineFields< RemainingFieldTypes... >::AssignStringToField;
 
+private :
     auto GetLineForNextField( const StoreableBinMap &aStore, const std::string &aLine ) const
     {
         auto lIterator = GetNextDelimiterIterator( aStore, aLine );
@@ -77,6 +78,7 @@ protected :
     static void AssignStringToField( const std::string &aString, std::pair< FieldType, bool >& aField ) noexcept
     {
         std::stringstream lStream;
+        lStream << std::boolalpha;
         lStream << aString;
         lStream >> aField.first;
 
