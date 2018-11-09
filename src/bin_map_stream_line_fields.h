@@ -39,7 +39,8 @@ public :
 
     }
 
-    bool IsEmpty() const noexcept { return ! mField.second; }
+    bool IsEmpty() const noexcept
+    { return BinMapStreamLineFields< RemainingFieldTypes... >::IsEmpty() || ! mField.second; }
 
 private :
     auto GetLineForNextField( const StoreableBinMap &aStore, const std::string &aLine ) const
