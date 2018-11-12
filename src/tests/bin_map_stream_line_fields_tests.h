@@ -18,7 +18,7 @@ TEST( bin_map_stream_line_fields, empty_line_gives_no_fields )
 
     BinMapStreamLineFields< int > lFields{ lStore, lLine };
 
-    ASSERT_TRUE( lFields.IsEmpty() );
+    ASSERT_TRUE( lFields.IsValid() );
 }
 
 TEST( bin_map_stream_line_fields, no_fields_if_any_type_is_wrong )
@@ -28,7 +28,7 @@ TEST( bin_map_stream_line_fields, no_fields_if_any_type_is_wrong )
 
     BinMapStreamLineFields< std::string, bool, double > lFields{ lStore, lLine };
 
-    ASSERT_TRUE( lFields.IsEmpty() );
+    ASSERT_TRUE( lFields.IsValid() );
 }
 
 TEST( bin_map_stream_line_fields, no_fields_if_type_list_is_lesser_than_line_fields )
@@ -38,7 +38,7 @@ TEST( bin_map_stream_line_fields, no_fields_if_type_list_is_lesser_than_line_fie
 
     BinMapStreamLineFields< std::string, std::string >lFields{ lStore, lLine };
 
-    ASSERT_TRUE( lFields.IsEmpty() );
+    ASSERT_TRUE( lFields.IsValid() );
 }
 
 TEST( bin_map_stream_line_fields, no_fields_if_type_list_is_greater_than_line_fields )
@@ -48,7 +48,7 @@ TEST( bin_map_stream_line_fields, no_fields_if_type_list_is_greater_than_line_fi
 
     BinMapStreamLineFields< std::string, std::string, double, int >lFields{ lStore, lLine };
 
-    ASSERT_TRUE( lFields.IsEmpty() );
+    ASSERT_TRUE( lFields.IsValid() );
 }
 
 TEST( bin_map_stream_line_fields, correct_mapping_between_line_and_type_list_give_fields )
@@ -59,7 +59,7 @@ TEST( bin_map_stream_line_fields, correct_mapping_between_line_and_type_list_giv
 
     BinMapStreamLineFields< std::string, std::string, double, int >lFields{ lStore, lLine };
 
-    ASSERT_FALSE( lFields.IsEmpty() );
+    ASSERT_FALSE( lFields.IsValid() );
 }
 
 TEST( bin_map_stream_line_fields, obtain_first_field_value_for_unique_field )
