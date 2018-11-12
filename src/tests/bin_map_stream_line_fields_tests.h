@@ -90,9 +90,9 @@ TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
 
     FakeLvmWtBinMapStore lStore;
 
-    BinMapStreamLineFields< bool, double, int >lFields{ lStore, lLine };
+    BinMapStreamLineFields< bool, double, std::string >lFields{ lStore, lLine };
 
     ASSERT_THAT( lFields.GetValueAt< 1 >(), testing::Eq( 3.141597 ) );
     ASSERT_THAT( lFields.GetValueAt< 0 >(), testing::Eq( true ) );
-    ASSERT_THAT( lFields.GetValueAt< 2 >(), testing::Eq( 42 ) );
+    ASSERT_THAT( lFields.GetValueAt< 2 >(), testing::Eq( "42" ) );
 }
