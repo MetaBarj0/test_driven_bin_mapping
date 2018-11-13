@@ -30,7 +30,7 @@ public :
 
     bool IsReady() const noexcept override { return IsReadyInternal(); }
 
-    BinMapStreamLine GetLineFor( StoreableBinMap &aStoreable ) const noexcept
+    BinMapStreamLine GetLineFor( StoreableBinMap &aStoreable ) const noexcept override
     {
         std::string lLine;
         bool lResult = static_cast< bool >( std::getline( *mStream, lLine, aStoreable.GetEndOfLine() ) );

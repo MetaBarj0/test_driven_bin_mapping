@@ -3,8 +3,10 @@
 
 #include "common/storeable_bin_map.h"
 #include "common/string_manipulations.h"
+#include "lvm_wt_bin_map_item.h"
 
 #include <string>
+#include <vector>
 
 namespace Qx
 {
@@ -12,8 +14,6 @@ namespace BinMapping
 {
 
 struct ReadableBinMapContent;
-
-class LvmWtBinMapItem;
 
 class LvmWtBinMapStore : public StoreableBinMap
 {
@@ -32,6 +32,7 @@ public :
 private :
     std::unique_ptr< ReadableBinMapContent > mFileReader;
     bool mIsHeaderLineDetected = false;
+    std::vector< LvmWtBinMapItem > mItems;
 };
 
 }

@@ -161,7 +161,7 @@ public :
          * As you can see, BinMapStreamLineFields< RemainingFieldTypes... > is the base class.
          */
 
-        return BinMapStreamLineFields< RemainingFieldTypes... >::IsValid() || ! mField.second;
+        return BinMapStreamLineFields< RemainingFieldTypes... >::IsValid() && mField.second;
     }
 
     template< std::size_t FieldIndex >
@@ -232,7 +232,7 @@ public :
             AssignStringToField( aLine, mField );
     }
 
-    bool IsValid() const noexcept { return ! mField.second; }
+    bool IsValid() const noexcept { return mField.second; }
 
     template< std::size_t aFieldIndex >
     const auto & GetValueAt() const

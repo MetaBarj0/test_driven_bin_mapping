@@ -36,6 +36,9 @@ public :
         return BinMapStreamLineFields< FieldTypes... >{ aStore, mContent };
     }
 
+    bool IsEmpty() const noexcept
+    { return mContent.empty() || mKind == BinMapStreamLineKinds::unspecified; }
+
 private :
     std::string mContent;
     BinMapStreamLineKinds mKind = BinMapStreamLineKinds::unspecified;

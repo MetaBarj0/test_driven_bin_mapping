@@ -1,23 +1,36 @@
 #include "lvm_wt_bin_map_item.h"
 
+#include <utility>
+
 namespace Qx
 {
 namespace BinMapping
 {
 
-std::string LvmWtBinMapItem::GetTestName() const
+LvmWtBinMapItem::LvmWtBinMapItem(std::string &&aTestName, int aTestNumber, int aBinNumber, std::string &&aBinName) noexcept :
+    mTestName{ std::move( aTestName ) },
+    mTestNumber{ aTestNumber },
+    mBinNumber{ aBinNumber },
+    mBinName{ std::move( aBinName ) } {}
+
+const std::string & LvmWtBinMapItem::GetTestName() const noexcept
 {
-    throw "Not implemented yet";
+    return mTestName;
 }
 
-int LvmWtBinMapItem::GetBinNumber() const
+int LvmWtBinMapItem::GetTestNumber() const noexcept
 {
-    throw "Not implemented yet";
+    return mTestNumber;
 }
 
-std::string LvmWtBinMapItem::GetBinName() const
+int LvmWtBinMapItem::GetBinNumber() const noexcept
 {
-    throw "Not implemented yet";
+    return mBinNumber;
+}
+
+const std::string & LvmWtBinMapItem::GetBinName() const noexcept
+{
+    return mBinName;
 }
 
 }

@@ -6,12 +6,16 @@ namespace Qx
 namespace BinMapping
 {
 
+class BinMapStreamLine;
+struct StoreableBinMap;
+
 struct ReadableBinMapContent
 {
 public :
     virtual ~ReadableBinMapContent() = default;
 
     virtual bool IsReady() const noexcept = 0;
+    virtual BinMapStreamLine GetLineFor( StoreableBinMap &aStoreable ) const noexcept = 0;
 };
 
 }
