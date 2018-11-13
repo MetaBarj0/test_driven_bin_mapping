@@ -243,12 +243,46 @@ public :
         return mField.first;
     }
 
-protected :
+private :
+    /**
+     * The template below is another helper for the AssignStringToField method. It helps to translate a string to a
+     * streamable type only if the streamable type is not a string itself.
+     * It is necessary because putting a string containing space characters within splits that string and gives only a
+     * substring before the first space encountered.
+     */
+
+    template< typename FieldType >
+    struct FieldAssigner
+    {
+        static void AssignStringToField( const std::string &aString, std::pair< FieldType, bool > &aField )
+        {
+            std::stringstream lStream;
+            lStream << std::boolalpha;
+            lStream << aString;
+            lStream >> aField.first;
+
+            aField.second = static_cast< bool >( lStream );
+        }
+    };
+
+    template< typename CharType, typename CharTraits, typename Allocator >
+    struct FieldAssigner< std::basic_string< CharType, CharTraits, Allocator > >
+    {
+        using StringType = std::basic_string< CharType, CharTraits, Allocator >;
+
+        static void AssignStringToField( const std::string &aString, std::pair< StringType, bool > &aField )
+        {
+            aField.first = aString;
+            aField.second = true;
+        }
+    };
+
     /**
      * The two next methods are peeked in derived class thanks to using declarations allowing me to define them only
      * once here, in the most base class of the inheritance hierarchy.
      */
 
+protected :
     auto GetNextDelimiterIterator( const StoreableBinMap &aStore, const std::string &aLine ) const noexcept
     {
         return std::find_if( std::cbegin( aLine ),
@@ -257,14 +291,9 @@ protected :
     }
 
     template< typename FieldType >
-    static void AssignStringToField( const std::string &aString, std::pair< FieldType, bool >& aField ) noexcept
+    static void AssignStringToField( const std::string &aString, std::pair< FieldType, bool >& aField )
     {
-        std::stringstream lStream;
-        lStream << std::boolalpha;
-        lStream << aString;
-        lStream >> aField.first;
-
-        aField.second = static_cast< bool >( lStream );
+        FieldAssigner< FieldType >::AssignStringToField( aString, aField );
     }
 
     template< std::size_t, typename >
