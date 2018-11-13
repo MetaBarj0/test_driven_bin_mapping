@@ -19,28 +19,8 @@ LvmWtBinMapStore::LvmWtBinMapStore( std::unique_ptr< ReadableBinMapContent > &&a
     if( ! mFileReader->IsReady() )
         throw InvalidStream{};
 
-    BinMapStreamLine aLine = mFileReader->GetLineFor( *this );
-
-    while( ! aLine.IsEmpty() )
-    {
-        if( aLine.IsHeader() || aLine.IsComment() )
-        {
-            aLine = mFileReader->GetLineFor( *this );
-            continue;
-        }
-
-        const auto &lFields = aLine.ToFields< std::string, int, int, std::string >( *this );
-
-        if( ! lFields.IsValid() )
-            throw InvalidStream{};
-
-        mItems.emplace_back( lFields.GetValueAt< LvmWtBinMapItem::test_name_field >(),
-                             lFields.GetValueAt< LvmWtBinMapItem::test_number_field >(),
-                             lFields.GetValueAt< LvmWtBinMapItem::bin_number_field >(),
-                             lFields.GetValueAt< LvmWtBinMapItem::bin_name_field >() );
-
-        aLine = mFileReader->GetLineFor( *this );
-    }
+    for( BinMapStreamLine aLine; PrepareValidBinMapStreamLine( aLine ); )
+        EmplaceItemFromValidBinMapStreamDataLine( aLine );
 }
 
 LvmWtBinMapItem LvmWtBinMapStore::GetBinMapItemByKey(int aKey) const
@@ -87,6 +67,34 @@ void LvmWtBinMapStore::SetHeaderLineDetectedToggle() noexcept
 bool LvmWtBinMapStore::IsHeaderLineDetected() const noexcept
 {
     return  mIsHeaderLineDetected;
+}
+
+bool LvmWtBinMapStore::IsDataLine(const BinMapStreamLine &aLine) const noexcept
+{
+    return ! aLine.IsHeader() && ! aLine.IsComment();
+}
+
+void LvmWtBinMapStore::EmplaceItemFromValidBinMapStreamDataLine(const BinMapStreamLine &aLine)
+{
+    if( ! IsDataLine( aLine ) )
+        return;
+
+    const auto &lFields = aLine.ToFields< std::string, int, int, std::string >( *this );
+
+    if( ! lFields.IsValid() )
+        throw InvalidStream{};
+
+    mItems.emplace_back( lFields.GetValueAt< LvmWtBinMapItem::test_name_field >(),
+                         lFields.GetValueAt< LvmWtBinMapItem::test_number_field >(),
+                         lFields.GetValueAt< LvmWtBinMapItem::bin_number_field >(),
+                         lFields.GetValueAt< LvmWtBinMapItem::bin_name_field >() );
+}
+
+bool LvmWtBinMapStore::PrepareValidBinMapStreamLine(BinMapStreamLine &aLine) noexcept
+{
+    aLine = mFileReader->GetLineFor( *this );
+
+    return ! aLine.IsEmpty();
 }
 
 }

@@ -14,6 +14,7 @@ namespace BinMapping
 {
 
 struct ReadableBinMapContent;
+class BinMapStreamLine;
 
 class LvmWtBinMapStore : public StoreableBinMap
 {
@@ -28,6 +29,11 @@ public :
     char GetEndOfLine() const noexcept override;
     void SetHeaderLineDetectedToggle() noexcept override;
     bool IsHeaderLineDetected() const noexcept override;
+
+private :
+    bool IsDataLine( const BinMapStreamLine &aLine ) const noexcept;
+    void EmplaceItemFromValidBinMapStreamDataLine( const BinMapStreamLine &aLine );
+    bool PrepareValidBinMapStreamLine( BinMapStreamLine &aLine ) noexcept;
 
 private :
     std::unique_ptr< ReadableBinMapContent > mFileReader;
