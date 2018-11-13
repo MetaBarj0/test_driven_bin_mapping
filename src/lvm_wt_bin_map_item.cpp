@@ -1,4 +1,5 @@
 #include "lvm_wt_bin_map_item.h"
+#include "common/string_manipulations.h"
 
 #include <utility>
 
@@ -8,7 +9,7 @@ namespace BinMapping
 {
 
 LvmWtBinMapItem::LvmWtBinMapItem(std::string &&aTestName, int aTestNumber, int aBinNumber, std::string &&aBinName) noexcept :
-    mTestName{ std::move( aTestName ) },
+    mTestName{ Qx::TrimStringLeftSideOf( std::move( aTestName ), ' ' ) },
     mTestNumber{ aTestNumber },
     mBinNumber{ aBinNumber },
     mBinName{ std::move( aBinName ) } {}
