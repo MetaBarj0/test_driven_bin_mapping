@@ -86,7 +86,7 @@ TEST( bin_map_stream_line_fields, out_of_range_index_for_field_value_must_throw 
 
 TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
 {
-    std::string lLine{ "true, 3.141597, 42" };
+    std::string lLine{ "true, 3.141597, 42 is the truth" };
 
     FakeLvmWtBinMapStore lStore;
 
@@ -94,5 +94,5 @@ TEST( bin_map_stream_line_fields, correct_index_gives_correct_field_value )
 
     ASSERT_THAT( lFields.GetValueAt< 1 >(), testing::Eq( 3.141597 ) );
     ASSERT_THAT( lFields.GetValueAt< 0 >(), testing::Eq( true ) );
-    ASSERT_THAT( lFields.GetValueAt< 2 >(), testing::Eq( "42" ) );
+    ASSERT_THAT( lFields.GetValueAt< 2 >(), testing::StrEq( "42 is the truth" ) );
 }

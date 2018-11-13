@@ -33,7 +33,7 @@ TEST(lvm_wt, instantiate_bin_map_store_with_invalid_stream_content )
     ASSERT_TRUE( lStore.IsEmpty() );
 }
 
-TEST( lvm_wt, instantiate_bin_map_store_with_valid_stream_content )
+TEST( lvm_wt, DISABLED_instantiate_bin_map_store_with_valid_stream_content )
 {
     std::stringstream lValidStream;
     lValidStream << "Test Name,STD TEST NUMBERS,Assigned  BIN#,Bin Name\n";
