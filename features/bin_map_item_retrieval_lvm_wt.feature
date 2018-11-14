@@ -26,6 +26,12 @@ Feature: Bin map item retrieval for the LVM_WT flow
     When I create a bin map store from that file
     Then the bin map store should have been created succesfully
 
+  Scenario: Querying a bin map item object from a store with an invalid key
+
+    Given a bin map item store created from an existing file bin_map_items_lvm_wt.csv
+    When I query a bin map item using the invalid key -42
+    Then an exception of type BinMapItemNotFound is thrown
+
   Scenario: Querying a bin map item object from a store
 
     Given a bin map item store created from an existing file bin_map_items_lvm_wt.csv

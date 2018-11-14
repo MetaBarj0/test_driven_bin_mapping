@@ -16,7 +16,9 @@ DISTFILES += \
 
 # production code paths and libs
 INCLUDEPATH += \
-    $$PWD/../src
+    $$PWD/../src \
+    $$PWD/../src/common \
+    $$PWD/../src/lvm_wt
 
 LIBS += -L$$PWD/../build
 LIBS += -ltdd_kata_bin_mapping

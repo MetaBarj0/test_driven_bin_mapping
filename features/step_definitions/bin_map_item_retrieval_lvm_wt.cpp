@@ -22,6 +22,7 @@ struct Context
     bool mFileExists = false;
     std::unique_ptr< LvmWtBinMapStore> mBinMapStore;
     std::unique_ptr< LvmWtBinMapItem > mRetrievedBinMapItem;
+    bool mBinMapItemNotFoundExceptionThrown = false;
 
     void SetupInputFile( const std::string &aPath )
     {
@@ -106,6 +107,29 @@ WHEN( "^I query a bin map item using the key (\\d+)$" )
     {
     }
 }
+
+WHEN( "^I query a bin map item using the invalid key (-\\d+)$" )
+{
+    REGEX_PARAM( int, lKey );
+    ScenarioScope< Context > lContext;
+
+    try
+    {
+        lContext->mBinMapStore->GetBinMapItemByKey( lKey );
+    }
+    catch ( const Qx::BinMapping::BinMapItemNotFound & )
+    {
+        lContext->mBinMapItemNotFoundExceptionThrown = true;
+    }
+}
+
+THEN( "^an exception of type BinMapItemNotFound is thrown$" )
+{
+    ScenarioScope< Context > lContext;
+
+    ASSERT_TRUE( lContext->mBinMapItemNotFoundExceptionThrown );
+}
+
 
 THEN( "^the bin map item should have been retrieved successfully$" )
 {

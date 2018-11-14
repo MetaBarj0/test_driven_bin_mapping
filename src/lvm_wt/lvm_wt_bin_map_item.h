@@ -1,6 +1,8 @@
 #ifndef LVM_WT_BIN_MAP_ITEM_H
 #define LVM_WT_BIN_MAP_ITEM_H
 
+#include "tdd_kata_bin_mapping.h"
+
 #include <string>
 
 namespace Qx
@@ -8,7 +10,7 @@ namespace Qx
 namespace BinMapping
 {
 
-class LvmWtBinMapItem
+class TDD_KATA_BIN_MAPPING_API LvmWtBinMapItem
 {
 public :
     LvmWtBinMapItem( std::string &&aTestName, int aTestNumber, int aBinNumber, std::string &&aBinName ) noexcept;

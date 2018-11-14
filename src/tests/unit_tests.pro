@@ -4,7 +4,7 @@ TEMPLATE = app
 CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG += thread
-CONFIG -= qt
+CONFIG += qt
 
 HEADERS += \
     lvm_wt_tests.h \
@@ -18,7 +18,9 @@ SOURCES += \
         main.cpp
 
 INCLUDEPATH += \
-    $$PWD/..
+    $$PWD/.. \
+    $$PWD/../common \
+    $$PWD/../lvm_wt
 
 LIBS += -L$$PWD/../../build
 LIBS += -ltdd_kata_bin_mapping

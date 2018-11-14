@@ -1,6 +1,7 @@
 #ifndef BIN_MAP_STREAM_LINE_H
 #define BIN_MAP_STREAM_LINE_H
 
+#include "tdd_kata_bin_mapping.h"
 #include "bin_map_stream_line_fields.h"
 
 #include <string>
@@ -20,7 +21,7 @@ enum class BinMapStreamLineKinds
     unspecified
 };
 
-class BinMapStreamLine
+class TDD_KATA_BIN_MAPPING_API BinMapStreamLine
 {
 public :
     BinMapStreamLine() = default;

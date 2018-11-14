@@ -1,6 +1,7 @@
 #ifndef LVM_WT_BIN_MAP_STORE_H
 #define LVM_WT_BIN_MAP_STORE_H
 
+#include "tdd_kata_bin_mapping.h"
 #include "common/storeable_bin_map.h"
 #include "common/string_manipulations.h"
 #include "lvm_wt_bin_map_item.h"
@@ -16,7 +17,7 @@ namespace BinMapping
 struct ReadableBinMapContent;
 class BinMapStreamLine;
 
-class LvmWtBinMapStore : public StoreableBinMap
+class TDD_KATA_BIN_MAPPING_API LvmWtBinMapStore : public StoreableBinMap
 {
 public :
     LvmWtBinMapStore( std::unique_ptr< ReadableBinMapContent > &&aBinMapFileReader );
